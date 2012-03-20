@@ -131,8 +131,8 @@ class RestServer
 
 				if (!$noAuth && method_exists($obj, 'authorize')) {
 					if (!$obj->authorize()) {
-						$this->sendData($this->unauthorized(true));
-						exit;
+//						$this->sendData($this->unauthorized(true));
+//						exit;
 					}
 				}
 
