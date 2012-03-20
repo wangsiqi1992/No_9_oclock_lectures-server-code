@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# The URL-path used to get to this context, not the filesystem path
+RewriteBase /myFirstRESTserver/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$  index.php/$1
