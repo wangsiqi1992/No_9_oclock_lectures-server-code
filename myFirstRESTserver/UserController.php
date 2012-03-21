@@ -39,7 +39,7 @@ class UserController
             else {
                 //check token here!
                 //if valid update database
-                $user = $this->getUserInfoFromFB($fbid, $fbAccessToken, $user);
+                $this->getUserInfoFromFB($fbid, $fbAccessToken, $user);
                 
                 setcookie('fbid', $fbid);
 
@@ -114,7 +114,7 @@ class UserController
         
     }
 //    
-    private function getUserInfoFromFB($fbid, $fbAccessToken, $user)
+    private function getUserInfoFromFB($fbid, $fbAccessToken, &$user)
     {
         require_once('facebook.php');
   
@@ -179,7 +179,7 @@ class UserController
                                              
                                          }
                                             
-                 return $user;
+//                 return $user;
                            
     }
     
