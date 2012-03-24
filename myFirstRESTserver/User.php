@@ -4,6 +4,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once 'DBlogin.php';
+
 class User
 {
     public $name;
@@ -47,8 +49,8 @@ class User
         }
         
         
-        mysql_connect(localhost, "wangsiqi1992", "pass");
-        @mysql_select_db("imperialDB") or die("unable to select db");
+        mysql_connect($db_hostname, $db_username, $db_password);
+        @mysql_select_db($db_database) or die("unable to select db");
         $query = "SELECT * FROM users WHERE fbid = $this->fbid";
         $result = mysql_query($query);
         if(mysql_result($result, 0, "name"))
@@ -77,8 +79,8 @@ class User
     public function userInfo($id)
     {
         $query = "SELECT * FROM  `users` WHERE fbid =$id";
-        mysql_connect(localhost, "wangsiqi1992", "pass");
-        @mysql_select_db("imperialDB") or die("unable to select db");
+        mysql_connect($db_hostname, $db_username, $db_password);
+        @mysql_select_db($db_database) or die("unable to select db");
         $result = mysql_query($query);
         mysql_close();
         $this->name = mysql_result($result, 0, "name");
