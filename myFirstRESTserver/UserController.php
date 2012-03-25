@@ -104,6 +104,15 @@ class UserController
     public function authorize()
     {
         $fbid = $_COOKIE['fbid'];
+        if(!$fbid)
+        {
+            if($_SERVER[PHP_AUTH_USER])
+            {
+                $fbid = $_SERVER[PHP_AUTH_USER];
+                setcookie('fbid', $fbid);
+            }
+            
+        }
         $user = new User;
         $user->userInfo($fbid);
         if($user->name)
