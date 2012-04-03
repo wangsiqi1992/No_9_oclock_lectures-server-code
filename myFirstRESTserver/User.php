@@ -8,6 +8,7 @@
 class User
 {
     public $name;
+    public $school;
     public $department;
     public $year;
     public $fbid;

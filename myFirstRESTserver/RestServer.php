@@ -33,12 +33,15 @@ class RestFormat
 	const HTML = 'text/html';
 	const AMF = 'applicaton/x-amf';
 	const JSON = 'application/json';
+        const IMAGE = 'image/jpeg';
+        
 	static public $formats = array(
 		'plain' => RestFormat::PLAIN,
 		'txt' => RestFormat::PLAIN,
 		'html' => RestFormat::HTML,
 		'amf' => RestFormat::AMF,
 		'json' => RestFormat::JSON,
+                'jpeg' => RestFormat::IMAGE,
 	);
 }
 
@@ -392,9 +395,22 @@ class RestServer
 			$stream = new Zend_Amf_Parse_InputStream($data);
 			$deserializer = new Zend_Amf_Parse_Amf3_Deserializer($stream);
 			$data = $deserializer->readTypeMarker();
-		} else {
+		} 
+                elseif  ($this->format == RestFormat::JSON){
 			$data = json_decode($data, TRUE);
 		}
+                elseif  ($this->format == RestFormat::IMAGE) {
+                        $data = fread($data);
+                        
+                
+                }
+                elseif  ($this->format == RestFormat::JSON) {
+                
+                }
+                elseif  ($this->format == RestFormat::JSON) {
+                
+                }
+                
 
 		return $data;
 	}

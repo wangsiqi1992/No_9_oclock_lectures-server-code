@@ -5,6 +5,7 @@
  * 
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ * FACEBOOK access token needs: user/friends about me+user/friend education history!
  */
 class UserController
 {
@@ -63,7 +64,8 @@ class UserController
 
         if ($id == "current") {
             //implement whatever you want here~!
-                    
+            $user->userInfo($_COOKIE['fbid']);
+
         } 
         elseif ($id == "friendList") {
             
@@ -103,6 +105,11 @@ class UserController
     
     public function authorize()
     {
+        $server = $this->server;
+        
+        if ($server->url == "/login" || $server->url == "") {
+            return TRUE;
+        }
         $fbid = $_COOKIE['fbid'];
         if(!$fbid)
         {
@@ -110,6 +117,8 @@ class UserController
             {
                 $fbid = $_SERVER[PHP_AUTH_USER];
                 setcookie('fbid', $fbid);
+                $_COOKIE['fbid'] = $fbid;
+                
             }
             
         }
@@ -139,6 +148,8 @@ class UserController
                 
                       try {
                                 $user_profile = $facebook->api('/'.$fbid,'GET');
+                                $user_friends = $facebook->api('/'.$fbid.'/friends','GET');
+                                
                                 
 
                             } catch(FacebookApiException $e) {
@@ -156,6 +167,8 @@ class UserController
                                             $user->fbAccessToken = $fbAccessToken;
                                             $user->fbid = $fbid;
                                             $edu = $user_profile['education'];
+                                            $friendList = $user_friends['data'];
+                                            
                                             foreach ($edu as $key => $value)
                                             {
                                                 if($value['type'] == "College")
@@ -167,11 +180,12 @@ class UserController
                                             $department = $sch['concentration'];
                                             $year = $sch['year'];
                                             $a1 = $department[0];
+                                            $user->school = $sch['school']['name'];
                                             $user->department = $a1['name'];
                                             $user->year = $year['name'];
                                             
                                             $user->saveUser(NIL);
-                                            $fileP = 'users/profilePic/'.$fbid.'.jpeg';
+                                            $fileP = 'usersData/profilePic/'.$fbid.'.jpeg';
                                             
                                          if(file_exists($fileP))
                                          {
@@ -187,6 +201,44 @@ class UserController
                                              
                                              
                                          }
+                                         
+                                         try {
+                                             foreach ($friendList as $key => $value) {
+                                                 $id = $friendList[$key]['id'];
+                                                $friendInfo = $facebook->api('/'.$id,'GET');
+                                                if ($friendInfo['education']) {
+                                                    $friendEducation = $friendInfo['education'];
+                                                    foreach ($friendEducation as $key2 => $value)
+                                                    {
+                                                        if($value['type'] == "College")
+                                                        {
+                                                            $s = $friendEducation[$key2];
+                                                            $friendSch = $s['school'];
+                                                            if ($friendSch['name'] == $user->school) {
+                                                                $friendWeWant[] = $friendList[$key];
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                    
+                                                    
+                                                }
+                                                 
+                                             }
+
+                                            } catch(FacebookApiException $e) {
+                                                // If the user is logged out, you can have a 
+                                                // user ID even though the access token is invalid.
+                                                // In this case, we'll get an exception, so we'll
+                                                // just ask the user to login again here.
+                                                $login_url = $facebook->getLoginUrl(); 
+                                                echo 'Please <a href="' . $login_url . '">login.</a>';
+                                                error_log($e->getType());
+                                                error_log($e->getMessage());
+                                                return FALSE;
+                                            }
+                                            $friendWeWant[] = "end";
+                                            
                                             
 //                 return $user;
                            
