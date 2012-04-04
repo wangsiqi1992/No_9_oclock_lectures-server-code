@@ -1,1 +1,39 @@
 Hello World!
+
+
+
+Imagine you wake up at 9 and just simply ask your friends to record the lecture for you! Or imagine if you don't feel like going to uni today, and listen to live streaming lectures when you are making the breakfast! We believed that our study life can be made a lot more easier, and NO ONE can stop us doing that! So we are setting up a mobile app to record and share lectures/notes. We are planning to use smartphone microphones and camera to do the job, so this app would make recording lecture and share notes (Answers) much more easier! You just simply use your phone, and you can also ask or share at anywhere!
+ 
+ 
+Our solution
+We will be relying on the facebook graph API for the social side. After users are logged in they will be asked for their department and year, and then they will be assigned to the directory folder they supposed to be in. At this stage, it will not be much more complicated than sharing and viewing contents. Once the user wants to ask a question on their tutorial sheet, they just simply go to the app and take a picture on the question they need help. they can also tag some of their friend to help, otherwise the question are updated as news feeds to other user.
+ 
+The facebook API  would allow our app to send out requests (push notifications!) to users' mobile Facebook clients, so everytime a user takes out their smartphone they are ready to be asked! (questions or lecture recording request).
+ 
+ 
+Market
+According to my research, there is no such kind of app that exists in the mobile market. but there are such website in united states. There is a huge opportunity to extend such kind of service into users hands, i.e. though mobile phones, so it can be more convenient! Our design has also added the social side into the game! So users are not only sharing because they want to share, there would be someone asking them for help! There will be a deeper relationship between user and the app! (and of course more COMPLICATED!)
+ 
+Our plan right now is to get it ready for the Mobile Competition of Imperial College, this would spread the word and would allow us to use it as an opportunity to increase awareness of this app that we are building.
+ 
+It is similar to apps such as Evernote in the sense that it is an app designed for organising notes yourself in the form of audio, pictures as well as text, but also brings in a social side where users around the College can interact with each other in ways such as requesting for lecture recording, answers, as well as sharing things that users are willing to upload.
+ 
+The close integration of this application with Facebook allows users to send requests via Facebook to friends, and therefore even users without the application may receive such requests once they open Facebook. As a result, it would spread virally across people around the College, and therefore the nature of the application already allows the application to spread to multiple users.
+ 
+This application has numerous areas which it can develop into, as the application can develop from a simple application to share things into a university based social networking platform, which can later possibly develop into other universities as well as a platform for sharing other things relating to the college.
+
+
+In the future, this might become a YouTube for academic contents, this could be a more user reachable version of Wikipedia! There is a trend that all kinds of services online(YouTube, Facebook) need to be more specific about users' interest, this might becomes the first move towards my vision.
+ 
+Development cycle
+The basic form of the application should be complete by the 23rd of March for submission to the mobile application competition. This version should include the basic platform where users can share lecture recordings, photos as well as text.
+ 
+Once this proves to be attractive to college users, further development can be made into adding features and improving the user experience.
+ 
+Required resources
+We are in need for an expert in server side languages such as php and MySQL in order to aid with the creation and the management of the database which will be required in order to manage all the content that is produced by the users. At the moment there is no need for equipment and resources as they are available. The current problem that we are facing is the setting up of the database (object database and user database) that can be managed. 
+
+
+
+
+SO IF YOU WANT TO PARTICIPATE IN THIS EXCITING DEVELOPING PROCESS, PLEASE LET ME KNOW AT: siqi.wang11@imperial.ac.uk
