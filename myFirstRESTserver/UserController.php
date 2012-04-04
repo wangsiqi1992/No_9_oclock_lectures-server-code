@@ -22,15 +22,19 @@ class UserController
     /**
      * Logs in a user with the given username and password POSTed. Though true
      * REST doesn't believe in sessions, it is often desirable for an AJAX server.
-     *
-     * @url POST /login
+     * return user preference!
+     * all tags
+     * anything that is needed to make a search(directory....)
+     * 
+     * @url POST /register
      * 
      */
-    public function login($data)
+    public function register($data)
     {
         $fbid = $data['fbid'];
         $fbAccessToken = $data['fbAccessToken'];
         $user = new User();
+        //seasion set here!!!!
         
         $user->userInfo($fbid);
             if($fbAccessToken == $user->fbAccessToken)

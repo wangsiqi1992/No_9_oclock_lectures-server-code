@@ -17,11 +17,12 @@ class NewsFeedsController
     }
     
      /**
-     * Returns a JSON string object to the browser when hitting the root of the domain
+     * post with a dictionary of tags, files in the temp folder
+      * 
      *
      * @url POST /news
      */
-    public function post($data)
+    public function postNewsWithTags($tags)
     {
         $filePath = 'testFolder/helloWorld.jpg';
         $file = fopen($filePath, 'w') or die('can not create the file');
@@ -32,6 +33,74 @@ class NewsFeedsController
         
         return "post successful!";
     }
+
+    /*
+     * query for a indivadual news
+     * @url GET /news/$nid
+     * 
+     */
+   public function getNewsDetail($nid)
+   {
+       
+   }
+   
+   /*
+    * search news with tags
+    * @url  GET /newsWithTags
+    */
+   public function searchNewsWithTags($tags)
+   {
+       
+   }
+   
+   /*
+    * make changes to a news~ like comments, tags
+    * @url  PUT /news/$nid
+    */
+   public function makeChangestoNews($nid)
+   {
+       
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    public function  authorize()
 //    {
