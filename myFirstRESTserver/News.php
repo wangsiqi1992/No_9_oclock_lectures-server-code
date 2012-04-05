@@ -11,10 +11,21 @@ class News
     public $date;
     public $author_id;
     public $detailOrSummary;
-    
+    public $nid;
+    public $fileArray;
+    public $searchCriteria;//aka tags and positions...!
 
-//    public $;
-//    public $title;
+
+
+
+
+
+
+
+
+
+
+
     public function __construct($data) 
     {
         if($data)
@@ -27,15 +38,38 @@ class News
     public function summaryOfNewsWithTags($tags)
     {
         echo 'getting summary of news';
+        //looking news summary in db...
+        
+        
     }
     public function detailedNews($nid)
     {
         echo 'getting detail of news:'.$nid;
+        //can share the same function as the summary... looking a few variables inside of db...
+        
     }
     public function saveNewsDetail()
     {
         //save this->!!!
         echo 'save news into our database';
+    }
+    
+    
+    /*
+     * below use DB!!!!
+     */
+    
+    protected function getNewFromDB()
+    {
+        
+        //set up the query... like separate file of properties... and written down...
+        
+        if($this->detailOrSummary == 'detail')
+        {            
+            //getting the file path ready and put into an array to return...
+
+        }
+
     }
     
     
