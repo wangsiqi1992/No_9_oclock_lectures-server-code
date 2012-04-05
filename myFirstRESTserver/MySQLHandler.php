@@ -278,6 +278,7 @@ class MySQLHandler {
 # Return Type: string 
 # Description: read a sql query from the file, prepare for it to be executed~!
 //             this is the handler function~!
+//Author:      Bill~!
 ########################################### 
     public function SQLexecute($fileName)
     {
