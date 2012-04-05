@@ -39,6 +39,8 @@ class News
     {
         echo 'getting summary of news';
         //looking news summary in db...
+        $this->getNewsFromDB();
+        
         
         
     }
@@ -46,6 +48,8 @@ class News
     {
         echo 'getting detail of news:'.$nid;
         //can share the same function as the summary... looking a few variables inside of db...
+        $this->getNewsFromDB();
+        
         
     }
     public function saveNewsDetail()
@@ -55,23 +59,62 @@ class News
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
      * below use DB!!!!
      */
     
-    protected function getNewFromDB()
+    protected function getNewsFromDB()
     {
         
         //set up the query... like separate file of properties... and written down...
         
         if($this->detailOrSummary == 'detail')
         {            
-            //getting the file path ready and put into an array to return...
+            //getting the file path ready and put into fileArray to return...
 
         }
+        
+        //return self...
 
     }
     
+    protected function saveNewsToDB()
+    {
+        /*
+         * get a place inside our db...
+         * nid needed!
+         */
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+         * save files from temp to the right directory
+         */
+        
+        
+        
+        
+        
+        
+    }
     
     
 }
