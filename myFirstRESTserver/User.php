@@ -36,6 +36,10 @@ class User
 //                        $this->fbid = "110730292284790";
 //
 //                    }    //this is what I made for testing on my ios programe! you can implement the new user from database!
+        if ($this->userExist())
+        {
+            echo 'user exist';
+        }
 
     }
     
@@ -69,7 +73,19 @@ class User
     
     protected function userExist($fbid)
     {
-        return  TRUE;
+        if(!$fbid)
+        {
+            $fbid = $_SESSION['fbid'];
+        }
+        
+        $criteria['_fbid'] = $fbid;
+        $result = dbQuery('SelectUserWithFbid', $criteria);
+        if($result)
+        {
+            return  TRUE;
+    
+        }
+        return  FALSE;
     }
 
 
@@ -100,7 +116,7 @@ class User
 //        $this->year = mysql_result($result, 0, "year");
 //        
 //        
-        return 'trying to find out about user:'.$id;
+        echo  'trying to find out about user:'.$id;
     }
     
     

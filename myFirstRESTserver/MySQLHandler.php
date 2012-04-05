@@ -288,7 +288,7 @@ class MySQLHandler {
         {
             if(strpbrk($sql, $key))
             {
-                str_replace($key, $value, $sql);
+                $sql = str_replace($key, $value, $sql);
             }
         else 
             {

@@ -14,7 +14,7 @@ function dbQuery($sql, $criteria)
 
     if($db)
     {
-        $result = $db->SQLexecute('SelectAllUsers', $criteria);
+        $result = $db->SQLexecute($sql, $criteria);
     }
     else
     {
