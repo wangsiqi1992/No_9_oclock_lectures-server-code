@@ -89,15 +89,21 @@ class UserController
      * Saves a user to the database
      *
      * @url POST /user
-     * @url PUT /users/$id
+     * @url PUT /user
      */
-    public function saveUser($id = null, $data)
+    public function saveUser($data)
     {
         // ... validate $data properties such as $data->username, $data->firstName, etc.
         //$data->id = $id;
-        $user = new User;
-        
-        $user->saveUser($data); // saving the user to the database
+        if($data['fbid'] == $_SESSION['fbid'])
+        {
+            
+            User::saveUser($data);
+        }
+        else
+        {
+            return FALSE;
+        }
   //      $data[$id] = 11111;
 //        if ($data['name']) {
  //       echo $data['name'];       
@@ -105,7 +111,7 @@ class UserController
 //
 //        }
        
-        return $user; // returning the updated or newly created user object
+        return TRUE; // success or not~!
     }
     
     public function authorize()
