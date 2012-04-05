@@ -47,10 +47,11 @@ class User
             }
 
         }
-        require_once 'DBlogin.php';
-        connectToDB();
-        $query = "SELECT * FROM users WHERE fbid = $this->fbid";
-        $result = mysql_query($query);
+//        require_once 'DBlogin.php';
+//        connectToDB();
+//        $query = "SELECT * FROM users WHERE fbid = $this->fbid";
+//        $result = mysql_query($query);        all integrated with the userExist function!
+        
         if($this->userExist($this->fbid))
         {
             $this->updateUser();
@@ -77,33 +78,34 @@ class User
 //        mysql_close();
         //varifying access token... and set cookie!!!
         //setcookie('fbid', $this->fbid, FALSE, '/', FALSE, TRUE);
-        
+        return  'trying to put user into DB!';
     }
     
     public function userInfo($id)
     {
-        require_once 'DBlogin.php';
-        connectToDB();
-        
-        $query = "SELECT * FROM  `users` WHERE fbid =$id";
-        $result = mysql_query($query);
-        mysql_close();
-        $this->name = mysql_result($result, 0, "name");
-        $this->fbAccessToken = mysql_result($result, 0, "fbAccessToken");
-        $this->fbid = mysql_result($result, 0, "fbid");
-        $this->department = mysql_result($result, 0, "department");
-        $this->year = mysql_result($result, 0, "year");
-        
-        
-        return $this;
+//        require_once 'DBlogin.php';
+//        connectToDB();
+//        
+//        $query = "SELECT * FROM  `users` WHERE fbid =$id";
+//        $result = mysql_query($query);
+//        mysql_close();
+//        $this->name = mysql_result($result, 0, "name");
+//        $this->fbAccessToken = mysql_result($result, 0, "fbAccessToken");
+//        $this->fbid = mysql_result($result, 0, "fbid");
+//        $this->department = mysql_result($result, 0, "department");
+//        $this->year = mysql_result($result, 0, "year");
+//        
+//        
+        return 'trying to find out about user:'.$id;
     }
     
     
     private function updateUser()
     {
-        $query = "UPDATE users SET name = '$this->name', department = '$this->department', year = $this->year, fbAccessToken = '$this->fbAccessToken' WHERE fbid = $this->fbid";
-        mysql_query($query);
-        mysql_close();        
+//        $query = "UPDATE users SET name = '$this->name', department = '$this->department', year = $this->year, fbAccessToken = '$this->fbAccessToken' WHERE fbid = $this->fbid";
+//        mysql_query($query);
+//        mysql_close();  
+        return  'trying to update user info for myself!';
     }
     
     
