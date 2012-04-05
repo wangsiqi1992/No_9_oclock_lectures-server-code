@@ -65,11 +65,11 @@ class UserController
      */
     public function getUser($id = null)
     {
-        $user = new User();
+//        $user = new User();
 
         if ($id == "current") {
             //implement whatever you want here~!
-            $user->userInfo($_COOKIE['fbid']);
+            $user = User::userInfo($_COOKIE['fbid']);
 
         } 
         elseif ($id == "friendList") {
@@ -78,7 +78,7 @@ class UserController
             
     }
         else {
-            $user->userInfo($id);            
+            $user = User::userInfo($id);            
             
             }
         return $user; // serializes object into JSON
