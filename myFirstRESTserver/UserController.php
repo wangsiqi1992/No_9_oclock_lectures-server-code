@@ -112,9 +112,7 @@ class UserController
     {
         $server = $this->server;
         
-        if ($server->url == "/register" || $server->url == "") {
-            return TRUE;
-        }
+        
         $fbid = $_SESSION['fbid'];
         if(!$fbid)
         {
@@ -125,8 +123,13 @@ class UserController
                 //check for access token here!
                 //set seasion here
                 $_SESSION['fbid'] = $fbid;
+//                ini_set('session.gc_maxlifetime', 10);
+                
                 return  TRUE;
 
+            }
+            if ($server->url == "/register" || $server->url == "") {
+            return TRUE;
             }
             return FALSE;
         }

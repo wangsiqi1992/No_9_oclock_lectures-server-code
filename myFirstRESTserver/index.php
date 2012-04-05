@@ -1,10 +1,19 @@
 <?php
+ob_start();
+
+//ini_set(session.cookie_lifetime, 60*60*24);
+//session....!
+session_start();
+
+
+?>
+<?php
  //   header('Content-type: application/json');
 include_once 'RestServer.php';
 include_once 'UserController.php';
 include_once 'NewsFeedsController.php';
-ob_start();
-session_start();
+
+
 
     spl_autoload_register(); // don't load our classes unless we use them
     $mode = 'debug'; // 'debug' or 'production'
@@ -19,5 +28,4 @@ session_start();
     $server->handle();
     
 ob_flush();
-
 ?>
