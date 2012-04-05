@@ -10,6 +10,7 @@ class News
     public $type;
     public $date;
     public $author_id;
+    public $likes;
     public $detailOrSummary;
     public $nid;
     public $fileArray;
@@ -56,18 +57,33 @@ class News
     {
         //save this->!!!
         echo 'save news into our database';
+        if(News::newsExist($this->nid))
+        {
+            //update all of the news... controller might changed that entire news content... like allowing user to implement it...
+        }
     }
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*
      * below use DB!!!!
      */
@@ -93,6 +109,7 @@ class News
          * get a place inside our db...
          * nid needed!
          */
+        //need to find out id of all the tag first? or we can insert stright away in one query?
         
         
         
@@ -116,6 +133,36 @@ class News
         
     }
     
+    
+    public function newsExist($nid)
+    {
+        return  TRUE;
+    }
+
+
+
+
+
+
+    /*
+     * return the structure of our database...
+     * tags, relationship between tags?
+     * structure of user belong to? like department and schools~!
+     * 
+     */
+    public function allTags()
+    {
+        //call functions to get all the mysql tables...
+        
+        //return an array~!
+        
+        
+    }
+    
+    public function DBlike($nid,$fbid)
+    {
+        //get a connection in the like table and update the total like in the news db...!
+    }
     
 }
 ?>

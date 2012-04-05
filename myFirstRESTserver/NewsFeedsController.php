@@ -42,7 +42,7 @@ class NewsFeedsController
         {
             $filePath = $value['tmp_name'];
             $file = fopen($filePath,'r');
-            $file = fread($file);
+//            $file = fread($file);
             $files[$key] = $file;
             
         }
@@ -83,6 +83,26 @@ class NewsFeedsController
        
    }
    
+   
+    /*
+    * make changes to only the likes...
+    * 
+    * 
+    * @url  POST /like/$nid
+    * 
+    */
+   public function like($nid)
+   {
+       echo   'trying to add one like!';
+      
+       News::DBlike($nid,$_SESSION['fbid']);//error might be catched here!
+       
+       
+   }
+   
+   
+   
+   
    /*
     * getting useful package of informations about the structure of our DB
     * @url  GET /allTheTags
@@ -90,7 +110,9 @@ class NewsFeedsController
     */
    public function getAllTags()
    {
-       return   'trying to obtain all of our tags';
+       echo   'trying to obtain all of our tags';
+       return News::allTags();
+       
    }
 
 
