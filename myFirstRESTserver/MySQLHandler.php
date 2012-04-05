@@ -286,7 +286,16 @@ class MySQLHandler {
         $sql = file_get_contents($filePath);
         foreach ($criteria as $key => $value)
         {
-            str_replace($key, $value, $sql);
+            if(strpbrk($sql, $key))
+            {
+                str_replace($key, $value, $sql);
+            }
+        else 
+            {
+                echo 'error! no key found for replacement';
+
+            }
+                
         }
         $operation = substr($fileName, 0, 1);
         
