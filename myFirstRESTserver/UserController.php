@@ -16,7 +16,7 @@ class UserController
      */
     public function test()
     {
-        return "Hello World";
+        return 'Hello'.$_SESSION['fbid'];
     }
 
     /**
@@ -39,15 +39,16 @@ class UserController
         $user->userInfo($fbid);
             if($fbAccessToken == $user->fbAccessToken)
             {
-                setcookie('fbid', $fbid);
+                $_SESSION['fbid'] = $fbid;
+                
             }
             else {
-                //check token here!
+                //check token here! with facebook
                 //if valid update database
                 $this->getUserInfoFromFB($fbid, $fbAccessToken, $user);
                 
-                setcookie('fbid', $fbid);
-
+                $_SESSION['fbid'] = $fbid;
+                
             }
 
         return $user;///return user friends and database structure here!!!!
@@ -111,28 +112,32 @@ class UserController
     {
         $server = $this->server;
         
-        if ($server->url == "/login" || $server->url == "") {
+        if ($server->url == "/register" || $server->url == "") {
             return TRUE;
         }
-        $fbid = $_COOKIE['fbid'];
+        $fbid = $_SESSION['fbid'];
         if(!$fbid)
         {
             if($_SERVER[PHP_AUTH_USER])
             {
                 $fbid = $_SERVER[PHP_AUTH_USER];
-                setcookie('fbid', $fbid);
-                $_COOKIE['fbid'] = $fbid;
                 
+                //check for access token here!
+                //set seasion here
+                $_SESSION['fbid'] = $fbid;
+                return  TRUE;
+
             }
-            
+            return FALSE;
         }
-        $user = new User;
-        $user->userInfo($fbid);
-        if($user->name)
-        {
-            return TRUE;
-        }
-        return FALSE;
+
+//        $user = new User;
+//        $user->userInfo($fbid);
+//        if($user->name)
+//        {
+//            return TRUE;
+//        }
+        return true;
         
     }
 //    
