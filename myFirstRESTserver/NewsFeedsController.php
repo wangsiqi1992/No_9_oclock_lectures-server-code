@@ -9,12 +9,22 @@ class NewsFeedsController
     /**
      * Returns a JSON string object to the browser when hitting the root of the domain
      *
-     * @url GET /news
+     * @url GET /news     
+     * @url GET /news/$nid
      */
-    public function test()
-    {
-        return "All the news!";
-    }
+   public function getNewsDetail($nid)
+   {
+       if($nid)
+       {
+            $news = new News;
+            $news->detailedNews($nid);
+            return   $news;
+       }
+        else {
+              return 'all the news!';
+    
+       }
+   }
     
      /**
      * post with a dictionary of tags, files in the temp folder
@@ -52,12 +62,7 @@ class NewsFeedsController
      * @url GET /news/$nid
      * 
      */
-   public function getNewsDetail($nid)
-   {
-       $news = new News;
-       $news->detailedNews($nid);
-       return   $news;
-   }
+
    
    /*
     * search news with tags
