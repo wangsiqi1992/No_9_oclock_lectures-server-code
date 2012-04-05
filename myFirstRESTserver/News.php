@@ -12,8 +12,19 @@ class News
     public $author_id;
 //    public $;
 //    public $title;
-    
-    
+    public function summaryOfNewsWithTags($tags)
+    {
+        
+    }
+    public function detailedNews($nid)
+    {
+        
+    }
+    public function saveNewsDetail()
+    {
+        //save this->!!!
+        
+    }
     
     
     
