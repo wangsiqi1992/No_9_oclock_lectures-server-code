@@ -111,10 +111,12 @@ class NewsFeedsController
 
 
 
-//    public function  authorize()
-//    {
-//        
-//    }
+    public function  authorize()
+    {
+        $uc = new UserController();
+        
+        return $uc->authorize();
+    }
 
 }
 ?>

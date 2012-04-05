@@ -10,6 +10,9 @@ class News
     public $type;
     public $date;
     public $author_id;
+    public $detailOrSummary;
+    
+
 //    public $;
 //    public $title;
     public function summaryOfNewsWithTags($tags)
