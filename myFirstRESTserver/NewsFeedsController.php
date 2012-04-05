@@ -61,7 +61,16 @@ class NewsFeedsController
    {
        
    }
-
+   
+   /*
+    * getting useful package of informations about the structure of our DB
+    * @url  GET /allTheTags
+    * 
+    */
+   public function getAllTags()
+   {
+       return   'trying to obtain all of our tags';
+   }
 
 
 
