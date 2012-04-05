@@ -163,14 +163,15 @@ class MySQLHandler {
         $this->debug(); 
         return false; 
       } else { 
-        $i = 0; 
-        $data = array(); 
-        while ($row = mysql_fetch_array($results)) { 
-            $data[$i] = $row; 
-            $i++; 
-        } 
-        mysql_free_result($results); 
-        return $data; 
+//        $i = 0; 
+//        $data = array(); 
+//        while ($row = mysql_fetch_array($results)) { 
+//            $data[$i] = $row; 
+//            $i++; 
+//        } 
+//        mysql_free_result($results); 
+//        return $data; 
+                return  $results;
       } 
     } 
     } 
