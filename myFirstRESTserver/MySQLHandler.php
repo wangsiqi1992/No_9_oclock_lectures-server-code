@@ -280,10 +280,14 @@ class MySQLHandler {
 //             this is the handler function~!
 //Author:      Bill~!
 ########################################### 
-    public function SQLexecute($fileName)
+    public function SQLexecute($fileName, $criteria)
     {
         $filePath = $this->queryDirectory.$fileName.'.sql';
         $sql = file_get_contents($filePath);
+        foreach ($criteria as $key => $value)
+        {
+            str_replace($key, $value, $sql);
+        }
         $operation = substr($fileName, 0, 1);
         
         switch ($operation) {
