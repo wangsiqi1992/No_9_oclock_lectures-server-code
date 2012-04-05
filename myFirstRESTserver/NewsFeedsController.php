@@ -24,14 +24,27 @@ class NewsFeedsController
      */
     public function postNewsWithTags($tags)
     {
-        $filePath = 'testFolder/helloWorld.jpg';
-        $file = fopen($filePath, 'w') or die('can not create the file');
-        $imagePath = $_FILES['image']['tmp_name'];
-        $image = fopen($imagePath,'r');
-        $image = fread($image);
-        copy($imagePath , $filePath) or die('can not copy');
+//        $filePath = 'testFolder/helloWorld.jpg';
+//        $file = fopen($filePath, 'w') or die('can not create the file');
+        $files = array();
+
+        foreach ($_FILES as $key => $value)
+        {
+            $filePath = $value['tmp_name'];
+            $file = fopen($filePath,'r');
+            $file = fread($file);
+            $files[$key] = $file;
+            
+        }
         
-        return "post successful!";
+        
+        //implement an array of all temp files!
+        
+        $news = new News($files);
+        $news->saveNewsDetail();
+        
+        
+        echo "post successful!";
     }
 
     /*
@@ -41,7 +54,9 @@ class NewsFeedsController
      */
    public function getNewsDetail($nid)
    {
-       
+       $news = new News;
+       $news->detailedNews($nid);
+       return   $news;
    }
    
    /*
@@ -50,7 +65,8 @@ class NewsFeedsController
     */
    public function searchNewsWithTags($tags)
    {
-       
+       $news = new News;
+       $news->summaryOfNewsWithTags($tags);
    }
    
    /*
