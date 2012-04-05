@@ -51,7 +51,7 @@ class User
         connectToDB();
         $query = "SELECT * FROM users WHERE fbid = $this->fbid";
         $result = mysql_query($query);
-        if(mysql_result($result, 0, "name"))
+        if($this->userExist($this->fbid))
         {
             $this->updateUser();
         }
@@ -62,13 +62,19 @@ class User
         
     }
     
-    
-    
-    private function putIntoDB(){
+    protected function userExist($fbid)
+    {
+        return  TRUE;
+    }
 
-        $query = "INSERT INTO users VALUES ('$this->name','$this->fbid','$this->department','$this->year','$this->fbAccessToken')";
-        mysql_query($query);
-        mysql_close();
+
+    private function putIntoDB(){
+        
+        
+
+//        $query = "INSERT INTO users VALUES ('$this->name','$this->fbid','$this->department','$this->year','$this->fbAccessToken')";
+//        mysql_query($query);
+//        mysql_close();
         //varifying access token... and set cookie!!!
         //setcookie('fbid', $this->fbid, FALSE, '/', FALSE, TRUE);
         
