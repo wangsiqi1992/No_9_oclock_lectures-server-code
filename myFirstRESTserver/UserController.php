@@ -33,25 +33,17 @@ class UserController
     {
         $fbid = $data['fbid'];
         $fbAccessToken = $data['fbAccessToken'];
-        $user = new User();
+        $userCompleteDetail = UserSecret::registration($fbid, $fbAccessToken);
+        
+        if($userCompleteDetail)
+        {
+            $_SESSION['fbid'] = $userCompleteDetail['fbid'];
+        }
         //seasion set here!!!!
         
-        $user->userInfo($fbid);
-            if($fbAccessToken == $user->fbAccessToken)
-            {
-                $_SESSION['fbid'] = $fbid;
-                
-            }
-            else {
-                //check token here! with facebook
-                //if valid update database
-                $this->getUserInfoFromFB($fbid, $fbAccessToken, $user);
-                
-                $_SESSION['fbid'] = $fbid;
-                
-            }
+        
 
-        return $user;///return user friends and database structure here!!!!
+        return $userCompleteDetail;///return user friends and database structure here!!!!
         
     }
 
@@ -115,6 +107,12 @@ class UserController
         return TRUE; // success or not~!
     }
     
+    
+    
+    
+    
+    
+    
     public function authorize()
     {
         $server = $this->server;
@@ -123,32 +121,36 @@ class UserController
         $fbid = $_SESSION['fbid'];
         if(!$fbid)
         {
+            if ($server->url == "/register" || $server->url == "") {
+            return TRUE;
+            }
             if($_SERVER[PHP_AUTH_USER])
             {
                 $fbid = $_SERVER[PHP_AUTH_USER];
                 
                 //check for access token here!
-                //set seasion here
-                $_SESSION['fbid'] = $fbid;
-//                ini_set('session.gc_maxlifetime', 10);
-                
-                return  TRUE;
+                $userS = new UserSecret;
+                $fbAccessToken = $_SERVER[PHP_AUTH_PW];//CHECK THE SPELLING HERE?!?
+                if($userS->verifyAccessToken($fbAccessToken))
+                {
+                    //set seasion here
+                    $_SESSION['fbid'] = $fbid;                
+                    return  TRUE;
+                }
+                else 
+                {
+                    return  FALSE;
+                }
+
 
             }
-            if ($server->url == "/register" || $server->url == "") {
-            return TRUE;
-            }
-            return FALSE;
             debug('did not log in... controller authorize failed');
+            return FALSE;
         }
-
-//        $user = new User;
-//        $user->userInfo($fbid);
-//        if($user->name)
-//        {
-//            return TRUE;
-//        }
-        return true;
+        else 
+        {       
+            return true;
+        }
         
     }
 //    

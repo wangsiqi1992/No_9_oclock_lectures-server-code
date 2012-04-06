@@ -48,7 +48,7 @@ class UserSecret extends User
      * @param   $fbAccessToken  no test proformed here, need to be absolutely sure!
      * @return  true: if success    false: if not done for any reason...?(list here)
      */
-    protected function verifyAccessToken($fbAccessToken)
+    public function verifyAccessToken($fbAccessToken)
     {
         $tokenList = $this->fbAccessToken;
         foreach ($tokenList as  $value)
@@ -83,6 +83,19 @@ class UserSecret extends User
         
     }
     
+    
+    
+    
+    /**
+     *@abstract     save things &verifying token    &return things~ like all db things friend lists...   
+     */
+    public function registration($fbid, $fbAccessToken)
+    {
+        //verify token first... by downloading things from FB
+        //save token    
+        //check what to return~!
+        
+    }
     
 
 }

@@ -102,7 +102,30 @@ class User
         }
         return  FALSE;
     }
-
+    
+    
+    /**
+     * @abstract    get the basic user info of a id
+     * @param type $id
+     * @return type User        
+     */
+    public function userInfo($id)
+    {
+        debug('user class starting to look for user with id:'.$id);
+        $criteria['^fbid^'] = $id;
+        $sql = 'SelectUserWithFbid';
+        $result = dbQuery($sql, $criteria);
+        if($result)
+        {
+            $user = mysql_fetch_object($result, User);
+        }
+//        
+        debug('finished finding user with id:'.$id.', and the result is:', $user);
+        return $user;
+    }
+    
+    
+    
 
     /**
      *@abstract insert into DB!
@@ -113,11 +136,7 @@ class User
         
         
 
-//        $query = "INSERT INTO users VALUES ('$this->name','$this->fbid','$this->department','$this->year','$this->fbAccessToken')";
-//        mysql_query($query);
-//        mysql_close();
-        //varifying access token... and set cookie!!!
-        //setcookie('fbid', $this->fbid, FALSE, '/', FALSE, TRUE);
+
         $criteria['^fbid^'] = $this->fbid;
         $criteria['^name^'] = $this->name;
         $criteria['^school^'] = $this->school;
@@ -134,52 +153,39 @@ class User
         }
         return  TRUE;
     }
-    
-    
-    /**
-     * @abstract    get the basic user info of a id
-     * @param type $id
-     * @return type User        
-     */
-    public function userInfo($id)
-    {
-//        require_once 'DBlogin.php';
-//        connectToDB();
-//        
-//        $query = "SELECT * FROM  `users` WHERE fbid =$id";
-//        $result = mysql_query($query);
-//        mysql_close();
-//        $this->name = mysql_result($result, 0, "name");
-//        $this->fbAccessToken = mysql_result($result, 0, "fbAccessToken");
-//        $this->fbid = mysql_result($result, 0, "fbid");
-//        $this->department = mysql_result($result, 0, "department");
-//        $this->year = mysql_result($result, 0, "year");
-        debug('user class starting to look for user with id:'.$id);
-        $criteria['^fbid^'] = $id;
-        $sql = 'SelectUserWithFbid';
-        $result = dbQuery($sql, $criteria);
-        if($result)
-        {
-            $user = mysql_fetch_object($result, User);
-        }
-//        
-        debug('finished finding user with id:'.$id.', and the result is:', $user);
-        return $user;
-    }
+
     
     /**
      *@abstract change basic info of a user...  
      * @todo    need to check if the variables already exist in the table... schools?
      * @param   $this
      * @return string
+     * @todo    test............
      *  
      */
     private function updateUser()
     {
-//        $query = "UPDATE users SET name = '$this->name', department = '$this->department', year = $this->year, fbAccessToken = '$this->fbAccessToken' WHERE fbid = $this->fbid";
-//        mysql_query($query);
-//        mysql_close();  
-        debug('user class trying to update user, this method have not been implemented.....');
+        $criteria['^fbid^'] = $this->fbid;
+        $criteria['^name^'] = $this->name;
+        $criteria['^school^'] = $this->school;
+        $criteria['^department^'] = $this->department;
+        $criteria['^year^'] = $this->year;
+        
+        $sql[] = 'InsertSchoolIfNotExist';
+        $sql[] = 'InsertdepartmentIfNotExist';
+        $sql[] = 'UpdateUserBasics';
+        
+        $result = dbQuery($sql, $criteria);
+        
+        
+        
+        debug('user class trying to update user, result is: ', $result);
+        if ($result) 
+        {
+            return  TRUE;
+        }
+        
+        return  FALSE;
         
         }
     
