@@ -14,21 +14,26 @@ function dbQuery($sql, $criteria)
 
     if($db)
     {
+        debug('DB got query to do:      , with criteria:', $sql, $criteria);
         $result = $db->SQLexecute($sql, $criteria);
+        
     }
     else
     {
         if($db->OpenConnection())
         {
             
+            debug('reopened DB connection, but nothing happend... implementation needed...!');
+            
         }
         else 
         {
-            echo 'didnt connect to DB';
+            debug('didnt connect to DB');
         }
 
     }
     $db -> CloseConnection();
+    debug('DB got raw results:      or we can fetch the first one if it helps.....', $result, mysql_fetch_array($result[0]));
     return  $result;
 }
 

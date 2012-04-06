@@ -6,16 +6,16 @@
  */
 
 
-    function    debug($bug)
+    function    debug($bug,$var1,$var2)
     {
         $showError = TRUE;
 
         if ($showError) 
         {
-            echo '**************';;
+            echo '****';;
             print_r($bug);
-            echo date('H:i:s');
-            
+            print_r($var1);
+            print_r($var2);
         }
     }
 ?>

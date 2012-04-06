@@ -162,13 +162,14 @@ class User
 //        $this->year = mysql_result($result, 0, "year");
         debug('user class starting to look for user with id:'.$id);
         $criteria['^fbid^'] = $id;
-        $result = dbQuery('SelectUserWithFbid', $criteria);
+        $sql[] = 'SelectUserWithFbid';
+        $result = dbQuery($sql, $criteria);
         if($result)
         {
             $user = mysql_fetch_object($result, User);
         }
 //        
-        debug('finished finding user with id:'.$id.', and the result is:'.$user);
+        debug('finished finding user with id:'.$id.', and the result is:', $user);
         return $user;
     }
     
