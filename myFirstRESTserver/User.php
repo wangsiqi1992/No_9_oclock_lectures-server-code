@@ -44,6 +44,7 @@ class User
 //
 //                    }    //this is what I made for testing on my ios programe! you can implement the new user from database!
         //check if $id set, get userInfo()
+        debug('got a new user~');
 
     }
     

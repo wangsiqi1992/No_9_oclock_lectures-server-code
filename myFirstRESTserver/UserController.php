@@ -16,7 +16,7 @@ class UserController
      */
     public function test()
     {
-        return 'Hello'.$_SESSION['fbid'];
+        debug('Hello!');
     }
 
     /**
@@ -110,7 +110,7 @@ class UserController
  //       $user->name = "Hello world!";
 //
 //        }
-       
+        debug('save user successed! user is:'.$user);
         return TRUE; // success or not~!
     }
     
@@ -138,6 +138,7 @@ class UserController
             return TRUE;
             }
             return FALSE;
+            debug('did not log in... authorize failed');
         }
 
 //        $user = new User;

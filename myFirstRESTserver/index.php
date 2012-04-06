@@ -1,14 +1,14 @@
 <?php
 ob_start();
+include_once 'Debug.php';
 
 //ini_set(session.cookie_lifetime, 60*60*24);
 //session....!
 session_start();
-
+debug('session start!');
 
 ?>
 <?php
- //   header('Content-type: application/json');
 include_once 'RestServer.php';
 include_once 'UserController.php';
 include_once 'NewsFeedsController.php';
