@@ -162,7 +162,7 @@ class User
 //        $this->year = mysql_result($result, 0, "year");
         debug('user class starting to look for user with id:'.$id);
         $criteria['^fbid^'] = $id;
-        $sql[] = 'SelectUserWithFbid';
+        $sql = 'SelectUserWithFbid';
         $result = dbQuery($sql, $criteria);
         if($result)
         {

@@ -283,9 +283,8 @@ class MySQLHandler {
 ########################################### 
     public function SQLexecute($fileName, $criteria)
     {
-        foreach ($fileName as $name) {
             
-            $filePath = $this->queryDirectory.$name.'.sql';
+            $filePath = $this->queryDirectory.$fileName.'.sql';
             $sql = file_get_contents($filePath);
             foreach ($criteria as $key => $value)
             {
@@ -300,7 +299,7 @@ class MySQLHandler {
                 }
 
             }
-            $operation = substr($name, 0, 1);
+            $operation = substr($fileName, 0, 1);
 
             switch ($operation) {
                     case 'I':
@@ -324,10 +323,9 @@ class MySQLHandler {
 
                     default://error~~!
                         break;
-            }
-            $results[] = $result;
+
         }
-        return  $results;
+        return  $result;
         
     }
 } 
