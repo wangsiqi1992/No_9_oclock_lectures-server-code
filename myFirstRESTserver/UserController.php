@@ -88,7 +88,7 @@ class UserController
     /**
      * Saves a user to the database
      *
-     * @url POST /user
+     * @url POST /user      need to specify Format in http header to be json!
      * @url PUT /user
      */
     public function saveUser($data)
@@ -97,8 +97,8 @@ class UserController
         //$data->id = $id;
         if($data['fbid'] == $_SESSION['fbid'])
         {
-            
-            User::saveUser($data);
+            $user = new User();
+            $user->saveUser($data);
         }
         else
         {

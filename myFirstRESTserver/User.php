@@ -56,7 +56,7 @@ class User
     public function saveUser($param) {
         if($param)
         {
-            $this->userInfo($param['fbid']);
+//            $this->userInfo($param['fbid']);
             
             foreach ($param as $key => $value)
             {
@@ -95,8 +95,10 @@ class User
             return  FALSE;
          }
         
-        $criteria['_fbid'] = $fbid;
-        $result = dbQuery('SelectUserWithFbid', $criteria);
+        $criteria['^fbid^'] = $fbid;
+        $sql[] = 'SelectUserWithFbid';
+        $result = dbQuery($sql, $criteria);
+        $result = mysql_fetch_row($result[0]);
         if($result)
         {
             return  TRUE;
@@ -120,7 +122,21 @@ class User
 //        mysql_close();
         //varifying access token... and set cookie!!!
         //setcookie('fbid', $this->fbid, FALSE, '/', FALSE, TRUE);
-        return  'trying to put user into DB!';
+        $criteria['^fbid^'] = $this->fbid;
+        $criteria['^name^'] = $this->name;
+        $criteria['^school^'] = $this->school;
+        $criteria['^department^'] = $this->department;
+        $sql[0] = 'InsertSchoolIfNotExist';
+        $sql[1] = 'InsertDepartmentIfNotExist';
+        $sql[2] = 'InsertNewUser';
+        
+        $result = dbQuery($sql, $criteria);
+        $result = mysql_fetch_row($result);
+        if($result)
+        {
+            echo "put into db success! n/";
+        }
+        return  TRUE;
     }
     
     
@@ -143,12 +159,11 @@ class User
 //        $this->department = mysql_result($result, 0, "department");
 //        $this->year = mysql_result($result, 0, "year");
 
-        $criteria['_fbid'] = $id;
+        $criteria['^fbid^'] = $id;
         $result = dbQuery('SelectUserWithFbid', $criteria);
         if($result)
         {
             $user = mysql_fetch_object($result, User);
-            
         }
 //        
         echo  'trying to find out about user:'.$id;
@@ -156,7 +171,8 @@ class User
     }
     
     /**
-     *@abstract change basic info of a user...
+     *@abstract change basic info of a user...  
+     * @todo    need to check if the variables already exist in the table... schools?
      * @param   $this
      * @return string
      *  

@@ -2,7 +2,7 @@
 class MySQLHandler { 
 
   // Change these variables to your own database settings 
-  public $DATABASE = 'mydb'; 
+  public $DATABASE = 'appDB'; 
   public $USERNAME = 'root'; 
   public $PASSWORD = 'root'; 
   public $SERVER = 'localhost'; 
@@ -283,47 +283,51 @@ class MySQLHandler {
 ########################################### 
     public function SQLexecute($fileName, $criteria)
     {
-        $filePath = $this->queryDirectory.$fileName.'.sql';
-        $sql = file_get_contents($filePath);
-        foreach ($criteria as $key => $value)
-        {
-            if(strpbrk($sql, $key))
+        foreach ($fileName as $name) {
+            
+            $filePath = $this->queryDirectory.$name.'.sql';
+            $sql = file_get_contents($filePath);
+            foreach ($criteria as $key => $value)
             {
-                $sql = str_replace($key, $value, $sql);
-            }
-        else 
-            {
-                echo 'error! no key found for replacement';
+                if(strpbrk($sql, $key))
+                {
+                    $sql = str_replace($key, $value, $sql);
+                }
+            else 
+                {
+                    echo 'error! no key found for replacement';
+
+                }
 
             }
-                
-        }
-        $operation = substr($fileName, 0, 1);
-        
-        switch ($operation) {
-                case 'I':
-                $result = $this->Insert($sql);
-                    break;
-                case 'S':
-                $result = $this->Select($sql);
-                    break;
-                case 'U':
-                $result = $this->Update($sql);
-                    break;
-                case 'R':
-                $result = $this->Replace($sql);
-                    break;
-                case 'D':
-                $result = $this->Delete($sql);
-                    break;
-                case 'Q':
-                $result = $this->Query($sql);
-                    break;
+            $operation = substr($name, 0, 1);
 
-                default://error~~!
-                    break;
+            switch ($operation) {
+                    case 'I':
+                    $result = $this->Insert($sql);
+                        break;
+                    case 'S':
+                    $result = $this->Select($sql);
+                        break;
+                    case 'U':
+                    $result = $this->Update($sql);
+                        break;
+                    case 'R':
+                    $result = $this->Replace($sql);
+                        break;
+                    case 'D':
+                    $result = $this->Delete($sql);
+                        break;
+                    case 'Q':
+                    $result = $this->Query($sql);
+                        break;
+
+                    default://error~~!
+                        break;
+            }
+            $results[] = $result;
         }
-        return  $result;
+        return  $results;
         
     }
 } 
