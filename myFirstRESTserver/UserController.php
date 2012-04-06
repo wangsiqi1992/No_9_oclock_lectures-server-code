@@ -66,7 +66,7 @@ class UserController
     public function getUser($id = null)
     {
 //        $user = new User();
-
+        debug('controller tring to get user! id is:'.$id);
         if ($id == "current") {
             //implement whatever you want here~!
             $user = User::userInfo($_COOKIE['fbid']);
@@ -95,6 +95,7 @@ class UserController
     {
         // ... validate $data properties such as $data->username, $data->firstName, etc.
         //$data->id = $id;
+        debug('controller trying to save user~! id is:'.$data['fbid']);
         if($data['fbid'] == $_SESSION['fbid'])
         {
             $user = new User();
@@ -110,7 +111,7 @@ class UserController
  //       $user->name = "Hello world!";
 //
 //        }
-        debug('save user successed! user is:'.$user);
+        debug('controller save user successed! user is:'.$user);
         return TRUE; // success or not~!
     }
     
@@ -138,7 +139,7 @@ class UserController
             return TRUE;
             }
             return FALSE;
-            debug('did not log in... authorize failed');
+            debug('did not log in... controller authorize failed');
         }
 
 //        $user = new User;

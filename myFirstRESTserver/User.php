@@ -44,7 +44,7 @@ class User
 //
 //                    }    //this is what I made for testing on my ios programe! you can implement the new user from database!
         //check if $id set, get userInfo()
-        debug('got a new user~');
+        debug('creating a new user~');
 
     }
     
@@ -91,6 +91,7 @@ class User
      */
     public function userExist($fbid)
     {
+        debug('user checking if id:'.$fbid.'exist');
         if(!$fbid)
         {
             return  FALSE;
@@ -135,7 +136,7 @@ class User
         $result = mysql_fetch_row($result);
         if($result)
         {
-            echo "put into db success! n/";
+            debug('putting user into db successed, and the result we get is:'.$result);
         }
         return  TRUE;
     }
@@ -159,7 +160,7 @@ class User
 //        $this->fbid = mysql_result($result, 0, "fbid");
 //        $this->department = mysql_result($result, 0, "department");
 //        $this->year = mysql_result($result, 0, "year");
-
+        debug('user class starting to look for user with id:'.$id);
         $criteria['^fbid^'] = $id;
         $result = dbQuery('SelectUserWithFbid', $criteria);
         if($result)
@@ -167,7 +168,7 @@ class User
             $user = mysql_fetch_object($result, User);
         }
 //        
-        echo  'trying to find out about user:'.$id;
+        debug('finished finding user with id:'.$id.', and the result is:'.$user);
         return $user;
     }
     
@@ -183,8 +184,9 @@ class User
 //        $query = "UPDATE users SET name = '$this->name', department = '$this->department', year = $this->year, fbAccessToken = '$this->fbAccessToken' WHERE fbid = $this->fbid";
 //        mysql_query($query);
 //        mysql_close();  
-        return  'trying to update user info for myself!';
-    }
+        debug('user class trying to update user, this method have not been implemented.....');
+        
+        }
     
     
     
