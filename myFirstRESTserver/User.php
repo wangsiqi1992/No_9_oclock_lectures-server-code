@@ -6,7 +6,11 @@
  */
 require_once 'DB.php';
 
-
+/**
+ *@abstract this class return some basic info of a user that can be accessed by anybody!
+ * @todo    implement database functions like search with tags... whatever I dont know.......!!!!!ahhhhh!!!!!!
+ *  
+ */
 class User
 {
     public $name;
@@ -21,9 +25,12 @@ class User
 
 
 
-
-
-
+    /**
+     * @abstract    init a empty user if no $id provided... otherwise search for the userInfo
+     * @author      Bill~!
+     * @param       type $id 
+     * @return      User object
+     */
     public function __construct($id = NULL) {
 //                    $this->name = "Siqi Wang";
 //                    $this-> department = "Mechanical Engineering";
@@ -36,9 +43,16 @@ class User
 //                        $this->fbid = "110730292284790";
 //
 //                    }    //this is what I made for testing on my ios programe! you can implement the new user from database!
+        //check if $id set, get userInfo()
 
     }
     
+    
+    /**
+     * @abstract    check if user exist, put into db if not, otherwise update!
+     * @param       type $param 
+     * @return      success or not!
+     */
     public function saveUser($param) {
         if($param)
         {
@@ -67,6 +81,12 @@ class User
         
     }
     
+    
+    /**
+     * @abstract     check the existence of a id
+     * @param type $fbid
+     * @return boolean 
+     */
     protected function userExist($fbid)
     {
         if(!$fbid)
@@ -85,6 +105,11 @@ class User
     }
 
 
+    /**
+     *@abstract insert into DB!
+     * @param   $this
+     * @return string 
+     */
     private function putIntoDB(){
         
         
@@ -97,6 +122,12 @@ class User
         return  'trying to put user into DB!';
     }
     
+    
+    /**
+     * @abstract    get the basic user info of a id
+     * @param type $id
+     * @return type User        
+     */
     public function userInfo($id)
     {
 //        require_once 'DBlogin.php';
@@ -123,7 +154,12 @@ class User
         return $user;
     }
     
-    
+    /**
+     *@abstract change basic info of a user...
+     * @param   $this
+     * @return string
+     *  
+     */
     private function updateUser()
     {
 //        $query = "UPDATE users SET name = '$this->name', department = '$this->department', year = $this->year, fbAccessToken = '$this->fbAccessToken' WHERE fbid = $this->fbid";
