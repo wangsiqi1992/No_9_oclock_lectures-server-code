@@ -50,7 +50,7 @@ class User
     
     /**
      * @abstract    check if user exist, put into db if not, otherwise update!
-     * @param       type $param 
+     * @param       type $param     passed in as the correct format!!!
      * @return      success or not!
      */
     public function saveUser($param) {
@@ -70,13 +70,14 @@ class User
 //        $query = "SELECT * FROM users WHERE fbid = $this->fbid";
 //        $result = mysql_query($query);        all integrated with the userExist function!
         
-        if($this->userExist($this->fbid))
+        if(User::userExist($this->fbid))
         {
             $this->updateUser();
         }
         else {
             $this->putIntoDB();
         }
+
         
         
     }
@@ -87,7 +88,7 @@ class User
      * @param type $fbid
      * @return boolean 
      */
-    protected function userExist($fbid)
+    public function userExist($fbid)
     {
         if(!$fbid)
         {
