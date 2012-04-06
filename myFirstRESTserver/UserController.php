@@ -129,7 +129,10 @@ class UserController
                 $fbid = $_SERVER[PHP_AUTH_USER];
                 
                 //check for access token here!
-                $userS = new UserSecret;
+                
+                       $userS = new UserSecret;
+
+                
                 $fbAccessToken = $_SERVER[PHP_AUTH_PW];//CHECK THE SPELLING HERE?!?
                 if($userS->verifyAccessToken($fbAccessToken))
                 {

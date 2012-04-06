@@ -31,13 +31,13 @@ class UserSecret extends User
         if($user['fbid'])
         {
             $criteria['^fbid^'] = $user['fbid'];
-            $sql = 'SelectUserSecret';
+            $sql = 'SelectUserToken';
             $result = dbQuery($sql, $criteria);
-            $this[fbAccessToken] = mysql_fetch_row($result);    //potential bug:private var...  should be a list of token!!!
+            //$this[fbAccessToken] = mysql_fetch_row($result);    //potential bug:private var...  should be a list of token!!!
             
-            $_SESSION['userS'] = $this;
+ //           $_SESSION['userS'] = $this;
         }
-        return  FALSE;
+//        return  FALSE;
     }
     
     
@@ -50,7 +50,7 @@ class UserSecret extends User
      */
     public function verifyAccessToken($fbAccessToken)
     {
-        $tokenList = $this->fbAccessToken;
+//        $tokenList = $this->fbAccessToken;
         foreach ($tokenList as  $value)
         {
             if($fbAccessToken == $value)
