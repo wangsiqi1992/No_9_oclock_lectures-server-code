@@ -18,7 +18,6 @@ class User
     public $department;
     public $year;
     public $fbid;
-    public $fbAccessToken;
     
     
 
@@ -29,22 +28,17 @@ class User
      * @abstract    init a empty user if no $id provided... otherwise search for the userInfo
      * @author      Bill~!
      * @param       type $id 
+     * @todo        whats going on here?!?
      * @return      User object
      */
     public function __construct($id = NULL) {
-//                    $this->name = "Siqi Wang";
-//                    $this-> department = "Mechanical Engineering";
-//                    $this->year = "2014";
-//                    if ($id) {
-//                        $this->fbid = $id;
-//                    }
-// 
-//                    else {                    
-//                        $this->fbid = "110730292284790";
-//
-//                    }    //this is what I made for testing on my ios programe! you can implement the new user from database!
+        if ($id) 
+        {
+        $this = $this->userInfo($id);
+   
+        }
         //check if $id set, get userInfo()
-        debug('creating a new user~');
+        debug('creating a new user~', $this);       //potential bug here!!!!!***********************
 
     }
     
@@ -100,7 +94,7 @@ class User
         $criteria['^fbid^'] = $fbid;
         $sql[] = 'SelectUserWithFbid';
         $result = dbQuery($sql, $criteria);
-        $result = mysql_fetch_row($result[0]);
+        $result = mysql_fetch_object($result, User);
         if($result)
         {
             return  TRUE;
