@@ -31,29 +31,31 @@ class NewsFeedsController
      *
      * @url POST /news
      */
-    public function postNewsWithTags($tags)
+    public function postNewsWithTags($data)
     {
 //        $filePath = 'testFolder/helloWorld.jpg';
 //        $file = fopen($filePath, 'w') or die('can not create the file');
-        $files = array();
-
-        foreach ($_FILES as $key => $value)
-        {
-            $filePath = $value['tmp_name'];
-            $file = fopen($filePath,'r');
-//            $file = fread($file);
-            $files[$key] = $file;
-            
-        }
+//        $files = array();
+//
+//        foreach ($_FILES as $key => $value)
+//        {
+//            $filePath = $value['tmp_name'];
+//            $file = fopen($filePath,'r');
+////            $file = fread($file);
+//            $files[$key] = $file;
+//            
+//        }
         
         
         //implement an array of all temp files!
-        
-        $news = new News($files);
+//        $data = $data[0];
+        $news = new News();
+        $news->initNewsWithData($data['news']);
         $news->saveNewsDetail();
         
         
         echo "post successful!";
+        return  TRUE;
     }
 
     /*

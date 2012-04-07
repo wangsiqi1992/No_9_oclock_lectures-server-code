@@ -70,6 +70,21 @@ class News
         }
         else {
             //insert!
+            foreach ($this as $key => $value)
+            {
+                $criteria['^'.$key.'^'] = $value;
+            }
+            
+            $criteria['^author_id^'] = $_SESSION['fbid'];
+            $sql = 'InsertNewsBasics';
+            
+            $result = dbQuery($sql, $criteria);
+            
+            if($result)
+            {
+                return  TRUE;
+            }
+            return  FALSE;
         }
     }
     
@@ -185,6 +200,10 @@ class News
     
     public function newsExist($nid)
     {
+        if(!$this->nid)
+        {
+            return  FALSE;
+        }
         return  TRUE;
     }
 

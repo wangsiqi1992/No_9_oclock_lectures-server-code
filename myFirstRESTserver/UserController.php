@@ -116,13 +116,13 @@ class UserController
     
     public function authorize()
     {
-        $server = $this->server;
+//        $server = $this->server;
         
         
         $fbid = $_SESSION['fbid'];
         if(!$fbid)
         {
-            if ($server->url == "/register" || $server->url == "") {
+            if ($_SERVER['PATH_INFO'] == "/register" || $_SERVER['PATH_INFO'] == "") {
             return TRUE;
             }
             if($_SERVER[PHP_AUTH_USER])
