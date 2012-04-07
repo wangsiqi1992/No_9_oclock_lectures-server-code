@@ -55,7 +55,7 @@ class NewsFeedsController
         
         
         echo "post successful!";
-        return  TRUE;
+        return  TRUE; 
     }
 
     /*
