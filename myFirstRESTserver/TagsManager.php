@@ -7,18 +7,44 @@
 
 class TagsManager {
     
+    
+        static $standardTags = array(
+        "tag_1" => "",
+        "tag_2" => "",
+	"tag_3" => "",
+	"tag_4" => "",
+	"tag_5" => ""
+        );
+        static $locationInfo = array(
+            "school" => "",
+            "department" => ""
+        );
 
-    function __construct() {
+
+        public $myTags;
+        
+
+        /**
+     *
+     * @abstract        can init with a set of tags...! 
+     */
+    function __construct($tags) {
+        
+        if($tags)
+        {
+            $this->initWithTags($tags);
+            
+        }
         
     }
     
     /**
      *
      * @abstract        used by news controller to return data~!
-     * @param type $tags 
+     * @param 
      * @return          array of News
      */
-    public function searchNewsWithTags($tags)
+    public function searchNews()
     {
         
     }
@@ -31,9 +57,32 @@ class TagsManager {
      * @param type $tags 
      * @return          scuccess or not~!
      */
-    public function tagNews($nid, $tags)
+    public function tagNews($nid)
     {
-        
+        //prepare tags here...
+
+        //make sure all sql wild cards are changed to avoid error....
+
+        $tags = $this->myTags;
+        foreach ($tags as $key => $value)
+        {
+            $criteria['^tagTable^'] = $key;
+            $criteria['^tagName^'] = $value;
+            $sql = 'InsertTagNameIfNotExist';
+            dbQuery($sql, $criteria);
+            
+            $anotherCriteria['^'.$key.'^'] = $value;
+        }
+       
+        $sql = 'InsertNewsTags';
+        $anotherCriteria['^nid^'] = $nid;
+        $result = dbQuery($sql, $anotherCriteria);
+        if ($result) 
+        {
+            return  TRUE;
+            
+        }
+        return  FALSE;
     }
     
     
@@ -45,6 +94,41 @@ class TagsManager {
     public function getTagStructure()
     {
         
+    }
+    
+    
+    
+    /**
+     *
+     * @abstract        before saving the news... check if the same news exist at the same place...
+     * @param type $title 
+     */
+    public function ifNewsExistWithTheSameTags($title)
+    {
+        
+    }
+    
+    
+    
+    private function initWithTags($tags)
+    {
+        
+        
+        foreach (self::$standardTags  as $aKey => $aValue)
+        {
+
+            $this->myTags[$aKey] = $tags[$aKey];
+                
+            
+        }
+        
+        foreach (self::$locationInfo  as $bKey => $bValue)
+        {
+
+            $this->myTags[$bKey] = $tags[$bKey];
+                
+            
+        }
     }
 
 }

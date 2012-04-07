@@ -137,6 +137,10 @@ class MySQLHandler {
         return false; 
       } else { 
             $result = mysql_insert_id(); 
+            if (!$result) 
+            {
+                return  TRUE;
+            }
             return $result; 
       } 
     } 
@@ -280,6 +284,9 @@ class MySQLHandler {
 # Description: read a sql query from the file, prepare for it to be executed~!
 //             this is the handler function~!
 //Author:      Bill~!
+/**
+ *@todo     make the string sql safe by testing if there is still ^ exist inside the string...! 
+ */
 ########################################### 
     public function SQLexecute($fileName, $criteria)
     {

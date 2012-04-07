@@ -82,7 +82,7 @@ class News
             
             if($result)
             {
-                return  TRUE;
+                return  $result;
             }
             return  FALSE;
         }

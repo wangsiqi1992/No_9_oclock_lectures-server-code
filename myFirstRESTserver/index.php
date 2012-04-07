@@ -5,7 +5,7 @@ include_once 'Debug.php';
 //ini_set(session.cookie_lifetime, 60*60*24);
 //session....!
 session_start();
-debug('session start!'.  date('H:i'));
+debug('session start!'.  date('H:i').$_SESSION['fbid']);
 
 ?>
 <?php

@@ -53,12 +53,34 @@ class NewsFeedsController
         //implement an array of all temp files!
 //        $data = $data[0];
         $news = new News();
+        $tagM = new TagsManager($data['tags']);
+
         $news->initNewsWithData($data['news']);
-        $news->saveNewsDetail();
-        
-        
-        echo "post successful!";
-        return  TRUE; 
+        if(!$tagM->ifNewsExistWithTheSameTags($news->title))
+        {
+            $result = $news->saveNewsDetail();
+            if($result)
+            {
+                if($tagM->tagNews($result))
+                {
+                    return  TRUE;
+                }
+                else 
+                {
+                    debug('tagging the news fail!', NULL, NULL);
+                }
+            }
+            else 
+            {
+                debug('save news not successed... returned false', NULL, NULL);
+            }
+        }
+        else 
+        {
+            debug('trying to save a news title that is alread tagged at the same place!!! what is going on?', $news, $tagM);
+            
+        }
+        return  FALSE; 
     }
 
     /*
