@@ -54,7 +54,7 @@ class UserSecret //extends User
     
     /**
      * @abstract    check for token passed, if match with our db, 
-     * @todo        check all existing tokens if expired, delete!    if not the same as DB check to FB and save the token~!   
+     * @todo        check all existing tokens if expired, delete!    if not the same as DB check to FB and save the token~!   related to FB... do it later...
      * @author  Bill~!
      * @param   $fbAccessToken  no test proformed here, need to be absolutely sure!
      * @return  true: if success    false: if not done for any reason...?(list here)
@@ -71,12 +71,13 @@ class UserSecret //extends User
             else 
             {                
                 //what do we do here?!?!
+                //check expired or not~!
+                        //delete
             }
         }
         
         //check if this token is valiad
             //save it
-        //check all existing token expired?
         
         
         return  FALSE;

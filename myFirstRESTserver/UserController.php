@@ -62,7 +62,7 @@ class UserController
         debug('controller tring to get user! id is:'.$id);
         if ($id == "current") {
             //implement whatever you want here~!
-            $user = User::userInfo($_COOKIE['fbid']);
+            $user = User::userInfo($_SESSION['fbid']);
 
         } 
         elseif ($id == "friendList") {
