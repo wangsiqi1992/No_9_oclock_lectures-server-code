@@ -8,7 +8,12 @@
 
     function    debug($bug,$var1,$var2)
     {
+        
         $showError = TRUE;
+        if($_SERVER['HTTP_DEBUG_TURN_OFF'])
+        {
+            $showError = FALSE;
+        }
 
         if ($showError) 
         {
