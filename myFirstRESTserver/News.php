@@ -15,14 +15,9 @@ require_once 'DB.php';
 class News
 {
     public $title;
-    public $type;
     public $date;
     public $author_id;
-    public $likes;
-    public $onlySummary;
     public $nid;
-    public $fileArray;
-    public $searchCriteria;//aka tags and positions...!
 
 
 
@@ -46,9 +41,9 @@ class News
         if($this->newsExist())
         {
             //implement summary of the news object...
+            $this->initExistingNews();
         }
         
-        $this->onlySummary = TRUE;
         //else reture a empty object!
         
         
@@ -68,10 +63,13 @@ class News
     public function saveNewsDetail()
     {
         //save this->!!!
-        echo 'save news into our database';
+        //echo 'save news into our database';
         if($this->newsExist())
         {
             //update all of the news... controller might changed that entire news content... like allowing user to implement it...
+        }
+        else {
+            //insert!
         }
     }
     
@@ -80,9 +78,20 @@ class News
      * @param type $nid 
      * @return  News
      */
-    public function initExistingNews($nid)
+    private function initExistingNews()
     {
+        //get data from db first!
         
+        $criteria['^nid^'] = $this->nid;
+        $sql = 'SelectNewsBasicsWithNid';
+        $data = dbQuery($sql, $criteria);
+        $data = mysql_fetch_assoc($data);
+        
+        foreach ($data as $key => $value)
+        {
+            $this->$key = $value;
+            
+        }        
     }
     
     
@@ -95,7 +104,11 @@ class News
      */
     public function initNewsWithData($data)
     {
-        
+        foreach ($data as $key => $value)
+        {
+            $this->$key = $value;
+            
+        }
     }
 
 

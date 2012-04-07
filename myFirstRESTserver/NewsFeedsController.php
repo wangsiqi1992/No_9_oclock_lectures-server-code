@@ -16,8 +16,7 @@ class NewsFeedsController
    {
        if($nid)
        {
-            $news = new News;
-            $news->detailedNews($nid);
+            $news = new News($nid);
             return   $news;
        }
         else {
