@@ -33,7 +33,11 @@ class News
 
 
 
-
+    /**
+    *@abstract      if nid is provided search in the db     otherwise empty object
+    * @param type $nid (optional)
+     *@return   News
+    */
 
     public function __construct($nid) 
     {
@@ -46,18 +50,21 @@ class News
         
         $this->onlySummary = TRUE;
         //else reture a empty object!
+        
+        
+        
+        
         echo 'new news object!';
     }
     
 
-    public function detailOfNews($nid)
-    {
-        echo 'getting detail of news:'.$nid;
-        //can share the same function as the summary... looking a few variables inside of db...
-        $this->getNewsFromDB();
-        
-        
-    }
+
+    
+    
+    /**
+     *@abstract     put this into db 
+     * 
+     */
     public function saveNewsDetail()
     {
         //save this->!!!
@@ -68,8 +75,25 @@ class News
         }
     }
     
+    /**
+     *@abstract     initiate news from db
+     * @param type $nid 
+     * @return  News
+     */
+    public function initExistingNews($nid)
+    {
+        
+    }
     
-    public function getOnlySummary()
+    
+    
+    
+    /**
+     *@abstract     initiate a new News object with the data provided
+     * @param type $data 
+     * @return      News
+     */
+    public function initNewsWithData($data)
     {
         
     }

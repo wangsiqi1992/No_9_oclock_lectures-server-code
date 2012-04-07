@@ -12,24 +12,48 @@
 class DetailedNews extends News
 {
 
-    function __construct() {
-        parent::__construct();
+    public $fileDirectory;
+
+    /**
+     *
+     * @abstract         get detailed news if $id is provided
+     * 
+     */
+    function __construct($id) {
+        parent::__construct($id);
     
         }
     
-    public function initDetailedNewsWithData($data)
-    {
         
+        
+        /**
+         *
+         * @abstract        new news init, manage the files?
+         * @param type $data 
+         */
+    public function initNewsWithData($data)
+    {
+        parent::initNewsWithData($data);
     }
 
     
-    
-    public function initExistingNewsDetails($nid)
+    /**
+     *
+     * @abstract        get file directries and init it....
+     * @param type $nid 
+     */
+    public function initExistingNews($nid)
     {
-        
+        parent::initExistingNews($nid);
     }
     
     
+    
+    /**
+     *
+     * @abstract        save to the right place!
+     *  
+     */
     public function saveNewsDetail() {
         parent::saveNewsDetail();
         
