@@ -16,7 +16,7 @@ class News
 {
     public $title;
     public $date;
-    public $author_id;
+    public $author_name;
     public $nid;
 
 
@@ -49,7 +49,7 @@ class News
         
         
         
-        echo 'new news object!';
+        debug('we have created a new news object: ', $this);
     }
     
 
