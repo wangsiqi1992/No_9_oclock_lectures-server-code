@@ -7,6 +7,7 @@
  * and open the template in the editor.
  * FACEBOOK access token needs: user/friends about me+user/friend education history!
  */
+//include_once 'UserSecret.php';
 class UserController
 {
     /**
@@ -57,7 +58,7 @@ class UserController
      */
     public function getUser($id = null)
     {
-//        $user = new User();
+        $user = new User();
         debug('controller tring to get user! id is:'.$id);
         if ($id == "current") {
             //implement whatever you want here~!
@@ -70,7 +71,7 @@ class UserController
             
     }
         else {
-            $user = User::userInfo($id);            
+            $user = User::userInfo($id);  
             
             }
         return $user; // serializes object into JSON
@@ -130,7 +131,7 @@ class UserController
                 
                 //check for access token here!
                 
-                       $userS = new UserSecret;
+                       $userS = new UserSecret($fbid);
 
                 
                 $fbAccessToken = $_SERVER[PHP_AUTH_PW];//CHECK THE SPELLING HERE?!?

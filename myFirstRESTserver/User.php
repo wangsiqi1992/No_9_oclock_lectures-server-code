@@ -34,7 +34,8 @@ class User
     public function __construct($id = NULL) {
         if ($id) 
         {
-        $this = $this->userInfo($id);
+            $this->fbid = $id;
+            $this->userInfo();
    
         }
         //check if $id set, get userInfo()
@@ -105,23 +106,42 @@ class User
     
     
     /**
-     * @abstract    get the basic user info of a id
+     * @abstract    get the basic user info of a id     if no id provided return $this!  never User::userInfo()     either User::userInfo($id)  or  $this->userInfo();
      * @param type $id
      * @return type User        
      */
-    public function userInfo($id)
+    public function userInfo($id = NULL)
     {
-        debug('user class starting to look for user with id:'.$id);
-        $criteria['^fbid^'] = $id;
-        $sql = 'SelectUserWithFbid';
-        $result = dbQuery($sql, $criteria);
-        if($result)
+        if($id)
         {
-            $user = mysql_fetch_object($result, User);
+            debug('user class starting to look for user with id:'.$id);
+            $criteria['^fbid^'] = $id;
+            $sql = 'SelectUserWithFbid';
+            $result = dbQuery($sql, $criteria);
+            if($result)
+            {
+                $user = mysql_fetch_object($result, User);
+            }
+    //        
+            debug('finished finding user with id:'.$id.', and the result is:', $user);
+            return $user;
         }
-//        
-        debug('finished finding user with id:'.$id.', and the result is:', $user);
-        return $user;
+        else 
+        {
+            debug('user class starting to look for user with id:'.$id);
+            $criteria['^fbid^'] = $this->fbid;
+            $sql = 'SelectUserWithFbid';
+            $result = dbQuery($sql, $criteria);
+            if($result)
+            {
+                $user = mysql_fetch_assoc($result);
+                foreach ($user as $key => $value)
+                {
+                    $this->$key = $value;
+                }
+                return $this;
+            }            
+        }
     }
     
     

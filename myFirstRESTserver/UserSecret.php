@@ -15,28 +15,39 @@
  * act as a token manager~!
  *  
  */
-class UserSecret extends User
+class UserSecret //extends User
 {
     protected $fbAccessToken;
     
-    
     /**
+     * @abstract    accept both current user or a passed $id because of the registration process...
      *@author   Bill~!
      * @param   no param needed, only init current user!
      * @return  User::  with fbAccessToken
      * 
      */
-    function __construct() {
-        $user = new User($_SESSION['fbid']);
-        if($user['fbid'])
+    public function __construct($id = NULL) {
+        if(!$_SESSION['fbid'])
         {
-            $criteria['^fbid^'] = $user['fbid'];
+            $user = new User($id);
+        }
+        else
+        {
+            $user = new User($_SESSION['fbid']);
+        }
+        
+        if($user->fbid)
+        {
+            $criteria['^fbid^'] = $user->fbid;
             $sql = 'SelectUserToken';
             $result = dbQuery($sql, $criteria);
-            //$this[fbAccessToken] = mysql_fetch_row($result);    //potential bug:private var...  should be a list of token!!!
-            
+            while ($token = mysql_fetch_row($result))
+            {
+                $this->fbAccessToken[] = $token[0];
+            }            
  //           $_SESSION['userS'] = $this;
         }
+        return  $user;
 //        return  FALSE;
     }
     
@@ -50,7 +61,7 @@ class UserSecret extends User
      */
     public function verifyAccessToken($fbAccessToken)
     {
-//        $tokenList = $this->fbAccessToken;
+        $tokenList = $this->fbAccessToken;
         foreach ($tokenList as  $value)
         {
             if($fbAccessToken == $value)
