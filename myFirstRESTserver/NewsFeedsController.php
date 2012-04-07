@@ -62,9 +62,15 @@ class NewsFeedsController
      * @url GET /news/$nid
      * 
      */
+    public function newsDetail($nid)
+    {
+        $news = new News;
+        $news->detailOfNews($nid);
+    }
 
-   
-   /*
+
+
+    /*
     * search news with tags
     * @url  GET /newsWithTags
     */

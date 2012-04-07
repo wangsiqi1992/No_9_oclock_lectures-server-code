@@ -9,7 +9,9 @@ require_once 'DB.php';
 
 
 
-
+/**
+ *@abstract     news object  can contain both summary or (summary and files) 
+ */
 class News
 {
     public $title;
@@ -17,7 +19,7 @@ class News
     public $date;
     public $author_id;
     public $likes;
-    public $detailOrSummary;
+    public $onlySummary;
     public $nid;
     public $fileArray;
     public $searchCriteria;//aka tags and positions...!
@@ -33,25 +35,22 @@ class News
 
 
 
-    public function __construct($data) 
+    public function __construct($nid) 
     {
-        if($data)
+        $this->nid = $nid;
+        
+        if($this->newsExist())
         {
-            //implement a new news object
+            //implement summary of the news object...
         }
+        
+        $this->onlySummary = TRUE;
         //else reture a empty object!
         echo 'new news object!';
     }
-    public function summaryOfNewsWithTags($tags)
-    {
-        echo 'getting summary of news';
-        //looking news summary in db...
-        $this->getNewsFromDB();
-        
-        
-        
-    }
-    public function detailedNews($nid)
+    
+
+    public function detailOfNews($nid)
     {
         echo 'getting detail of news:'.$nid;
         //can share the same function as the summary... looking a few variables inside of db...
@@ -63,14 +62,21 @@ class News
     {
         //save this->!!!
         echo 'save news into our database';
-        if(News::newsExist($this->nid))
+        if($this->newsExist())
         {
             //update all of the news... controller might changed that entire news content... like allowing user to implement it...
         }
     }
     
     
-    
+    public function getOnlySummary()
+    {
+        
+    }
+
+
+
+
 
 
 
@@ -169,6 +175,8 @@ class News
     {
         //get a connection in the like table and update the total like in the news db...!
     }
+
+
     
 }
 ?>
