@@ -4,7 +4,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
+require_once 'DB.php';
 class TagsManager {
     
     
@@ -39,6 +39,15 @@ class TagsManager {
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      *
      * @abstract        used by news controller to return data~!
@@ -47,8 +56,36 @@ class TagsManager {
      */
     public function searchNews()
     {
+        if (!$this->composeTagQueryStatementBeforeSearch()) 
+        {
+            debug('compossing search condition fail when tagsManager searchNews', $this, NULL);
+            return  FALSE;
+        }
+        
+        $sql = file_get_contents('sqlQueries/tagsManagerTagsSearchStatement.sql');
+        $sql    .= $this->searchConditions;
+        file_put_contents('sqlQueries/SelectNewsWithTags'.$_SESSION['fbid'].'.sql', $sql);
+        $result = dbQuery('SelectNewsWithTags'.$_SESSION['fbid'], $this->criteria);
+        while ($r = mysql_fetch_array($result))
+        {
+            $results[] = $r[0];
+        }
+        
+        if($results)
+        {
+            return  $results;
+        }
+        
+        return  FALSE;
+        
         
     }
+    
+    
+    
+    
+    
+    
     
     
     /**
@@ -88,6 +125,15 @@ class TagsManager {
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      *
      * @abstract        summarise the structure of our tag system
@@ -97,6 +143,17 @@ class TagsManager {
     {
         
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -113,6 +170,7 @@ class TagsManager {
         if(!$this->composeTagQueryStatementBeforeSearch())
         {
             debug('some error when composing the search condition!', $this, NULL);
+            return  TRUE;
         }
         
         $sql .= $this->searchConditions;

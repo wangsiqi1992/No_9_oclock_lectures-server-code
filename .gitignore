@@ -1,2 +1,8 @@
 
 myFirstRESTserver/DBlogin.php
+
+myFirstRESTserver/sqlQueries/SelectNewsWithTitleAndTags.sql
+
+myFirstRESTserver/sqlQueries/SelectNewsWithTitleAndTags32.sql
+
+myFirstRESTserver/sqlQueries/SelectNewsWithTags1.sql

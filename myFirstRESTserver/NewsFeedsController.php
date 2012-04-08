@@ -81,17 +81,27 @@ class NewsFeedsController
     
     
     
-    /*
+    /**
     * search news with tags
-    * @url  GET /newsWithTags
+    * @url  POST /searchNewsWithTags
     */
-   public function searchNewsWithTags($tags)
+   public function searchNewsWithTags($data)
    {
-       $tm = new TagsManager($tags);
+       $tm = new TagsManager($data);
        
-       $newsList = $tm->searchNews();
+       if(!$nidList = $tm->searchNews())
+       {
+            debug('no news returned when searching with tags: ', $tm, NULL);
+            return  FALSE;
+       }
        
-       return   $newsListta;
+       foreach ($nidList as $value)
+       {
+           $news = new News($value);
+           $newsList[] = $news;
+           
+       }
+       return   $newsList;
    }
    
    
