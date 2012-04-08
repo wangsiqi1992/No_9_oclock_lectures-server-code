@@ -28,6 +28,11 @@ class NewsFeedsController
        }
    }
     
+   
+   
+   
+   
+   
      /**
      * post with a dictionary of tags, files in the temp folder
       * 
@@ -35,21 +40,7 @@ class NewsFeedsController
      * @url POST /news
      */
     public function postNewsWithTags($data)
-    {
-//        $filePath = 'testFolder/helloWorld.jpg';
-//        $file = fopen($filePath, 'w') or die('can not create the file');
-//        $files = array();
-//
-//        foreach ($_FILES as $key => $value)
-//        {
-//            $filePath = $value['tmp_name'];
-//            $file = fopen($filePath,'r');
-////            $file = fread($file);
-//            $files[$key] = $file;
-//            
-//        }
-        
-        
+    {                
         //implement an array of all temp files!
 //        $data = $data[0];
         $news = new News();
@@ -83,28 +74,32 @@ class NewsFeedsController
         return  FALSE; 
     }
 
-    /*
-     * query for a indivadual news
-     * @url GET /news/$nid
-     * 
-     */
-    public function newsDetail($nid)
-    {
-        $news = new News;
-        $news->detailOfNews($nid);
-    }
 
 
-
+    
+    
+    
+    
+    
     /*
     * search news with tags
     * @url  GET /newsWithTags
     */
    public function searchNewsWithTags($tags)
    {
-       $news = new News;
-       $news->summaryOfNewsWithTags($tags);
+       $tm = new TagsManager($tags);
+       
+       $newsList = $tm->searchNews();
+       
+       return   $newsListta;
    }
+   
+   
+   
+   
+   
+   
+   
    
    /*
     * make changes to a news~ like comments, tags

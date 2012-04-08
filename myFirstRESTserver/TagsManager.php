@@ -22,7 +22,8 @@ class TagsManager {
 
 
         public $myTags;
-        
+        public $searchConditions;
+        public $criteria;
 
         /**
      *
@@ -56,6 +57,7 @@ class TagsManager {
      * @param type $nid
      * @param type $tags 
      * @return          scuccess or not~!
+     * @todo        add location info here!     myTags['location']...
      */
     public function tagNews($nid)
     {
@@ -63,7 +65,7 @@ class TagsManager {
 
         //make sure all sql wild cards are changed to avoid error....
 
-        $tags = $this->myTags;
+        $tags = $this->myTags['tags'];
         foreach ($tags as $key => $value)
         {
             $criteria['^tagTable^'] = $key;
@@ -102,14 +104,40 @@ class TagsManager {
      *
      * @abstract        before saving the news... check if the same news exist at the same place...
      * @param type $title 
+     * @todo            string manipulation!!!  bug here... on all the arrays
      */
     public function ifNewsExistWithTheSameTags($title)
     {
+        $sql = file_get_contents('sqlQueries/tagsManagerCheckStatement.sql');
         
+        if(!$this->composeTagQueryStatementBeforeSearch())
+        {
+            debug('some error when composing the search condition!', $this, NULL);
+        }
+        
+        $sql .= $this->searchConditions;
+        
+        file_put_contents('sqlQueries/SelectNewsWithTitleAndTags'.$_SESSION['fbid'].'.sql', $sql);
+
+        $this->criteria['^title^'] = $title;//specific criteria for this statement!
+        
+        $result = dbQuery('SelectNewsWithTitleAndTags'.$_SESSION['fbid'], $this->criteria);
+        $result = mysql_num_rows($result);
+        if($result)
+        {
+            return  TRUE;
+        }
+        return  FALSE;
     }
     
     
-    
+    /**
+     *
+     * @todo        add school and department in a separated array! myTags['location']
+     * @param type $tags 
+     * 
+     * @todo        check if the tag's too long!!!!
+     */
     private function initWithTags($tags)
     {
         
@@ -117,18 +145,47 @@ class TagsManager {
         foreach (self::$standardTags  as $aKey => $aValue)
         {
 
-            $this->myTags[$aKey] = $tags[$aKey];
+            $this->myTags['tags'][$aKey] = $tags[$aKey];
                 
             
         }
         
-        foreach (self::$locationInfo  as $bKey => $bValue)
-        {
+//        foreach (self::$locationInfo  as $bKey => $bValue)
+//        {
+//
+//            $this->myTags[$bKey] = $tags[$bKey];
+//                
+//            
+//        }
+    }
+    
+    /**
+     *
+     * @abstract        compose this searchCondition and criteria ready to perform a search!
+     *                  you still need to add on the statement!
+     * @return boolean 
+     * 
+     */
+    private function composeTagQueryStatementBeforeSearch()
+    {
+        $this->searchConditions = null;
+        $tags = $this->myTags['tags'];
 
-            $this->myTags[$bKey] = $tags[$bKey];
-                
-            
+        foreach ($tags as $key => $value)
+        {
+            if ($value) 
+            {
+                $condition = file_get_contents('sqlQueries/tagsManagerCheckCondition.sql');
+                $condition = str_replace('^tagTable^', $key,$condition);
+                $condition = str_replace('tagName', $key, $condition);
+                $this->searchConditions .= $condition;
+                $this->criteria['^'.$key.'^'] = $value;
+
+            }
         }
+        
+        return  TRUE;
+        
     }
 
 }

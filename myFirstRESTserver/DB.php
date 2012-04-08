@@ -10,6 +10,7 @@
  * @param type $sql     could be both array and string
  * @param type $criteria    separate documentation explaining all wildcards
  * @return type         depends on how many results expecting... array if multiple results...!
+ * @todo            injection!!!
  */
 function dbQuery($sql, $criteria)
 {
