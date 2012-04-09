@@ -43,7 +43,7 @@ class NewsFeedsController
     {                
         //implement an array of all temp files!
 //        $data = $data[0];
-        $news = new News();
+        $news = new DetailedNews();
         $tagM = new TagsManager($data['tags']);
 
         $news->initNewsWithData($data['news']);
@@ -58,7 +58,7 @@ class NewsFeedsController
                 }
                 else 
                 {
-                    debug('tagging the news fail!', NULL, NULL);
+                    debug('tagging the news fail!', $tagM, $news);
                 }
             }
             else 
