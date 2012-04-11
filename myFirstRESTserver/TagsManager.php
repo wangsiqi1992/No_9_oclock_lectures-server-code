@@ -138,9 +138,37 @@ class TagsManager {
      *
      * @abstract        summarise the structure of our tag system
      * @todo            all the function needed for mobile UI structure....!!! Important, but not now..... 
+     * @return  array   a list of tags that could be related to the current tag manager
      */
     public function getTagStructure()
     {
+        $tags = $this->myTags['tags'];
+        for($i = 1; $i < 5; $i++)
+        {
+            $t = 'tag_'.$i;
+            if(!$tags[$t])
+            {
+                $i -= 1;
+                $targetTag = 'tag_'.$i;
+                $criteria['^targetTag^'] = $t;
+                $criteria['^parentTag^'] = $targetTag;
+                
+                $result = dbQuery('SelectNextLevelTags', $criteria);
+                
+                while ($r = mysql_fetch_row($result))
+                {
+                    $lala['name'] = $r;
+                    $lala['position'] = ($i + 1);
+                    $results[] = $lala;
+                }
+                return $results;
+                
+            }
+        }
+        
+        return FALSE;
+        
+        
         
     }
     

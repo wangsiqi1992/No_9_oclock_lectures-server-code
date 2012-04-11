@@ -23,7 +23,17 @@ class NewsFeedsController
             return   $news;
        }
         else {
-              return 'all the news!';
+            $tags['tag_1'] = 'I dont know what I am tagging';
+            $tm = new TagsManager($tags);
+            $nidList = $tm->searchNews();
+            foreach ($nidList as $value)
+            {
+                $news = new News($value);
+                $newsList[] = $news;
+
+            }
+            
+              return $newsList;
     
        }
    }
@@ -111,7 +121,7 @@ class NewsFeedsController
    
    
    
-   /*
+   /**
     * make changes to a news~ like comments, tags
     * @url  PUT /news/$nid
     */
@@ -121,7 +131,7 @@ class NewsFeedsController
    }
    
    
-    /*
+    /**
     * make changes to only the likes...
     * 
     * 
@@ -140,15 +150,18 @@ class NewsFeedsController
    
    
    
-   /*
+   /**
     * getting useful package of informations about the structure of our DB
-    * @url  GET /allTheTags
+    * @url  POST /nextLevelTags
     * 
     */
-   public function getAllTags()
+   public function getTags($data)
    {
+       $tags = $data['tags'];
        echo   'trying to obtain all of our tags';
-       return News::allTags();
+       $tm = new TagsManager($tags);
+       
+       return $tm->getTagStructure();
        
    }
 

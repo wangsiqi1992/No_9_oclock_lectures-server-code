@@ -34,6 +34,19 @@ class DetailedNews extends News
     public function initNewsWithData($data)
     {
         parent::initNewsWithData($data);
+        $nid = $this->nid;
+        foreach ($_FILES as $Tkey => $value)
+        {
+            $uploads_dir = '/newsFiles/'.$nid.'/'.$Tkey;
+            foreach ($_FILES[$Tkey]["error"] as $key => $error) {
+                if ($error == UPLOAD_ERR_OK) {
+                    $tmp_name = $_FILES[$Tkey]["tmp_name"][$key];
+                    $name = $_FILES[$Tkey]["name"][$key];
+                    move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                }
+            }
+            
+        }
     }
 
     
